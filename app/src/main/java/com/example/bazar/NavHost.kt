@@ -5,24 +5,24 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.bazar.feature.onboarding.presentation.HorizontalOnBoardingPager
 import com.example.bazar.feature.splash.presentation.SplashScreen
 
 
 @Composable
-fun SetupNavHost(modifier: Modifier = Modifier) {
+fun SetupNavHost() {
 
     val navController = rememberNavController()
 
     NavHost(
-        modifier = modifier,
         navController = navController,
         startDestination = Screen.SplashScreen
     ) {
         composable<Screen.SplashScreen> {
             SplashScreen(navController)
         }
-        composable<Screen.MainScreen> {
-            Greeting("Abram Ibrahim")
+        composable<Screen.OnBoardingScreen> {
+            HorizontalOnBoardingPager()
         }
     }
 

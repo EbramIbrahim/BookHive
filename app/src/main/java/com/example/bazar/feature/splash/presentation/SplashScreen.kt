@@ -34,7 +34,7 @@ fun SplashScreen(navController: NavController) {
 
     LaunchedEffect(duration.value) {
         if (!duration.value) {
-            navController.navigate(Screen.MainScreen) {
+            navController.navigate(Screen.OnBoardingScreen) {
                 popUpTo(Screen.SplashScreen) { inclusive = true }
             }
         }

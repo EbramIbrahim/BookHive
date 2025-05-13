@@ -6,5 +6,5 @@ interface Screen {
     data object SplashScreen: Screen
 
     @kotlinx.serialization.Serializable
-    data object MainScreen: Screen
+    data object OnBoardingScreen: Screen
 }
