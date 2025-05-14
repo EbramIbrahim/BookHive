@@ -1,4 +1,4 @@
-package com.example.bazar.feature.onboarding.presentation
+package com.example.bazar.feature.onboarding.presentation.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,6 +30,7 @@ import com.example.bazar.ui.theme.primaryColor
 @Composable
 fun OnBoardingScreen(
     onBoarding: OnBoarding,
+    onClick:() -> Unit
 ) {
 
     Column(
@@ -51,7 +51,7 @@ fun OnBoardingScreen(
                     color = primaryColor,
                     fontSize = 16.sp
                 ),
-                modifier = Modifier.clickable {}
+                modifier = Modifier.clickable { onClick() }
             )
         }
 
@@ -102,7 +102,8 @@ private fun OnBoardingPrev() {
         subtitle = " Discover new worlds, join a vibrant\nreading community. Start your reading\nadventure effortlessly with us."
     )
     OnBoardingScreen(
-        onBoarding
+        onBoarding,
+        onClick = {}
     )
 }
 

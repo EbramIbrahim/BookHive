@@ -19,8 +19,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.bazar.R
 import com.example.bazar.Screen
@@ -29,14 +29,24 @@ import com.example.bazar.ui.theme.primaryColor
 @Composable
 fun SplashScreen(navController: NavController) {
 
-    val viewModel: SplashViewModel = viewModel<SplashViewModel>()
+    val viewModel: SplashViewModel = hiltViewModel()
     val duration = viewModel.splashScreenDuration.collectAsStateWithLifecycle()
 
-    LaunchedEffect(duration.value) {
-        if (!duration.value) {
-            navController.navigate(Screen.OnBoardingScreen) {
-                popUpTo(Screen.SplashScreen) { inclusive = true }
+    LaunchedEffect(
+        key1 = duration.value.splashDuration,
+        key2 = duration.value.skipOnBoarding
+    ) {
+        if (!duration.value.splashDuration) {
+            if (duration.value.skipOnBoarding) {
+                navController.navigate(Screen.HomeScreen) {
+                    popUpTo(Screen.SplashScreen) { inclusive = true }
+                }
+            } else {
+                navController.navigate(Screen.OnBoardingScreen) {
+                    popUpTo(Screen.SplashScreen) { inclusive = true }
+                }
             }
+
         }
     }
     Box(
@@ -54,7 +64,7 @@ fun SplashScreen(navController: NavController) {
             Spacer(modifier = Modifier.width(12.dp))
 
             Text(
-                text = "Bazar.",
+                text = "BookHive.",
                 style = TextStyle(
                     color = Color.White,
                     fontSize = 30.sp,

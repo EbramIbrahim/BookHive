@@ -1,4 +1,4 @@
-package com.example.bazar.feature.onboarding.presentation
+package com.example.bazar.feature.onboarding.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,25 +14,34 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import com.google.accompanist.pager.HorizontalPager
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bazar.R
+import com.example.bazar.Screen
 import com.example.bazar.core.presentation.ui.PrimaryCustomElevatedButton
 import com.example.bazar.feature.onboarding.data.OnBoarding
+import com.example.bazar.feature.onboarding.presentation.viewmodel.OnBoardingViewModel
 import com.example.bazar.ui.theme.primaryColor
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun HorizontalOnBoardingPager() {
+fun HorizontalOnBoardingPager(
+    navController: NavController
+) {
+
+    val viewModel: OnBoardingViewModel = hiltViewModel()
 
     val pages = listOf(
         OnBoarding(
@@ -67,7 +76,13 @@ fun HorizontalOnBoardingPager() {
                 .fillMaxWidth()
                 .weight(1f)
         ) { page ->
-            OnBoardingScreen(pages[page])
+            OnBoardingScreen(
+                pages[page],
+                onClick = {
+                    viewModel.saveSkipOnBoarding()
+                    navController.navigate(Screen.HomeScreen)
+                }
+            )
         }
 
 
@@ -111,6 +126,9 @@ fun HorizontalOnBoardingPager() {
                     if (pagerState.currentPage < 2) {
                         val nextPage = pagerState.currentPage + 1
                         scope.launch { pagerState.animateScrollToPage(nextPage) }
+                    } else {
+                        viewModel.saveSkipOnBoarding()
+                        navController.navigate(Screen.HomeScreen)
                     }
                 }
             )
@@ -131,7 +149,7 @@ fun HorizontalOnBoardingPager() {
 @Preview
 @Composable
 private fun HorizontalOnBoardingPagerPrev() {
-    HorizontalOnBoardingPager()
+    HorizontalOnBoardingPager(navController = rememberNavController())
 }
 
 

@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrainsKotlinSerialization)
+    alias(libs.plugins.daggerHiltAndroid)
+    id("kotlin-kapt")
+
 }
 
 android {
@@ -68,4 +71,21 @@ dependencies {
 
     // Pager
     implementation(libs.accompanist.pager)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
+    // Dagger Hilt
+    implementation(libs.dagger.hilt.android)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+
 }
