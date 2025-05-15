@@ -10,5 +10,6 @@ data class Result(
     val media_type: String,
     val subjects: List<String>,
     val title: String,
-    val translators: List<Translator>
+    val translators: List<Translator>,
+    val formats: Formats,
 )

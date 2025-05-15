@@ -24,7 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.bazar.R
-import com.example.bazar.Screen
+import com.example.bazar.core.presentation.navigation.Screen
 import com.example.bazar.core.presentation.ui.PrimaryCustomElevatedButton
 import com.example.bazar.feature.onboarding.data.OnBoarding
 import com.example.bazar.feature.onboarding.presentation.viewmodel.OnBoardingViewModel

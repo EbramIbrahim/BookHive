@@ -10,4 +10,5 @@ data class Books(
     val mediaType: String,
     val subjects: List<String>,
     val title: String,
+    val bookImage: String,
 )

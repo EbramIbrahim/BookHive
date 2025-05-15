@@ -26,6 +26,7 @@ hiltCompilerVersion = "1.2.0"
 retrofit = "2.10.0"
 okhttp = "4.12.0"
 converterGson = "2.10.0"
+coilCompose = "2.4.0"
 
 
 [libraries]
@@ -58,8 +59,9 @@ dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", vers
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 
 
 [plugins]

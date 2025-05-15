@@ -5,7 +5,6 @@ import com.example.bazar.core.domain.utils.NetworkError
 import com.example.bazar.core.domain.utils.Result
 import com.example.bazar.feature.home_screen.domain.model.Books
 import com.example.bazar.feature.home_screen.domain.repository.GetBooksRepository
-import com.example.bazar.feature.home_screen.presentation.utils.toMessage
 import kotlinx.coroutines.ensureActive
 import kotlinx.serialization.SerializationException
 import java.nio.channels.UnresolvedAddressException

@@ -13,6 +13,7 @@ fun Result.toBooks(): Books {
         languages = this.languages,
         mediaType = this.media_type,
         subjects = this.subjects,
-        title = this.title
+        title = this.title,
+        bookImage = this.formats.image.orEmpty()
     )
 }

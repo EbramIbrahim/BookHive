@@ -42,8 +42,13 @@ class BooksViewModel @Inject constructor(
             _booksState.update { it.copy(isLoading = true) }
             useCase.invoke()
                 .onSuccess { books ->
-                    _booksState.update { it.copy(isLoading = false) }
-                    _booksState.update { it.copy(books = books) }
+                    _booksState.update {
+                        it.copy(
+                            books = books,
+                            offerBook = books.firstOrNull(),
+                            isLoading = false
+                        )
+                    }
                 }
                 .onError {
                     _booksState.update { it.copy(isLoading = false) }
