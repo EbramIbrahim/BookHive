@@ -1,10 +1,12 @@
 package com.example.bazar.feature.home_screen.presentation.ui
 
 import android.content.Context
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -13,8 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -29,14 +33,20 @@ fun BookCardSection(
     context: Context
 ) {
 
-    Column {
+    Column(
+        modifier = Modifier
+            .width(127.dp)
+            .height(198.dp)
+    ) {
         Card(
             modifier = Modifier
                 .width(127.dp)
                 .height(150.dp),
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(8.dp)
         ) {
+
             AsyncImage(
+                modifier = Modifier.fillMaxSize(),
                 model = ImageRequest.Builder(context = context)
                     .data(book.bookImage)
                     .error(R.drawable.books_error)
@@ -44,16 +54,15 @@ fun BookCardSection(
                     .crossfade(enable = true)
                     .build(),
                 contentDescription = book.id.toString(),
-                modifier = Modifier
-                    .fillMaxSize(),
                 contentScale = ContentScale.FillBounds
+
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
             modifier = Modifier.width(127.dp),
-            text = book.title,
+            text = "book.title",
             style = TextStyle(
                 color = Color.Black,
                 fontSize = 16.sp,
@@ -68,13 +77,14 @@ fun BookCardSection(
             text = "$14.99",
             style = TextStyle(
                 color = primaryColor,
-                fontSize = 18.sp,
+                fontSize = 16.sp,
             )
         )
 
     }
-
 }
+
+
 
 
 

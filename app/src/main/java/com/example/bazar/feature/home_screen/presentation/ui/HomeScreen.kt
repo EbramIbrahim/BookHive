@@ -1,8 +1,8 @@
 package com.example.bazar.feature.home_screen.presentation.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.bazar.core.data.utils.VendorsList.vendors
 import com.example.bazar.core.presentation.utils.ErrorMessageSection
 import com.example.bazar.core.presentation.utils.ObserveAsEvent
 import com.example.bazar.core.presentation.utils.LoadingSection
@@ -53,6 +54,9 @@ fun HomeScreen() {
     }
 
     Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
         topBar = {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -73,7 +77,7 @@ fun HomeScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(innerPadding),
         ) {
             ErrorMessageSection(errorMessage)
             LoadingSection(state.isLoading)
@@ -87,43 +91,85 @@ fun HomeScreen() {
             }
             Spacer(modifier = Modifier.height(28.dp))
 
-            Row(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(horizontal = 24.dp)
             ) {
-                Text(
-                    text = "Top of Week",
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Top of Week",
+                        style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     )
-                )
-                Text(
-                    text = "See all",
-                    style = TextStyle(
-                        color = primaryColor,
-                        fontSize = 18.sp,
-                    )
-                )
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            LazyRow{
-                items(state.books.take(10)) {book ->
-                    BookCardSection(
-                        book = book,
-                        context = context
+                    Text(
+                        text = "See all",
+                        style = TextStyle(
+                            color = primaryColor,
+                            fontSize = 18.sp,
+                        )
                     )
                 }
-            }
 
+                Spacer(modifier = Modifier.height(16.dp))
+
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(state.books.take(10)) { book ->
+                        BookCardSection(
+                            book = book,
+                            context = context
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Best Vendors",
+                        style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                    Text(
+                        text = "See all",
+                        style = TextStyle(
+                            color = primaryColor,
+                            fontSize = 18.sp,
+                        )
+                    )
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(vendors) { vendor ->
+                        VendorsSection(vendor)
+                    }
+                }
+            }
         }
+
     }
 
+
 }
+
+
 
 
 
