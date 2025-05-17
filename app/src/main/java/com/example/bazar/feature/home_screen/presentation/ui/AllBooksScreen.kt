@@ -24,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -33,14 +34,20 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bazar.R
 import com.example.bazar.feature.home_screen.domain.model.Books
+import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksViewModel
 
 
 @Composable
-fun AllCards(books: List<Books>, context: Context) {
+fun AllBooksScreen(
+    viewModel: BooksViewModel,
+    context: Context
+) {
+    val state by viewModel.booksState.collectAsStateWithLifecycle()
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -76,7 +83,7 @@ fun AllCards(books: List<Books>, context: Context) {
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(books) { book ->
+                items(state.books) { book ->
                     AllBookCardSection(book, context)
                 }
 

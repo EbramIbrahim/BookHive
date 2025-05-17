@@ -12,4 +12,7 @@ interface Screen {
 
     @Serializable
     data object HomeScreen: Screen
+
+    @Serializable
+    data object AllBooksScreen: Screen
 }
