@@ -10,8 +10,12 @@ class GetBooksRepositoryImpl @Inject constructor(
     private val api: BooksApi
 ): GetBooksRepository {
 
-    override suspend fun getBooks(): List<Books> {
-        val books = api.getBooks().results.map { it.toBooks() }
+    override suspend fun getBooks(
+        queryMap: Map<String, Any>?
+    ): List<Books> {
+        val books = api.getBooks(
+            queryMap = queryMap
+        ).results.map { it.toBooks() }
         return books
     }
 }

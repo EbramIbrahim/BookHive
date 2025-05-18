@@ -15,24 +15,23 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -42,50 +41,57 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bazar.R
+import com.example.bazar.core.presentation.ui.AnimatedSearchAppBar
+import com.example.bazar.core.presentation.utils.ErrorMessageSection
+import com.example.bazar.core.presentation.utils.LoadingSection
+import com.example.bazar.core.presentation.utils.ObserveAsEvent
 import com.example.bazar.feature.home_screen.domain.model.Books
+import com.example.bazar.feature.home_screen.presentation.utils.toMessage
+import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksEvent
 import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AllBooksScreen(
-    context: Context
-) {
+fun AllBooksScreen() {
     val viewModel: BooksViewModel = hiltViewModel()
     val state by viewModel.booksState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    var errorMessage by rememberSaveable {
+        mutableStateOf("")
+    }
+
+    ObserveAsEvent(viewModel.eventChannel) { event ->
+        when (event) {
+            is BooksEvent.Error -> {
+                errorMessage = event.error.toMessage(context)
+            }
+        }
+    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "All Books",
-                        style = TextStyle(
-                            color = Color.Black,
-                            fontSize = 18.sp,
-                            fontStyle = FontStyle.Italic
-                        )
-                    )
-                },
-                actions = {
-                    Icon(
-                        Icons.Outlined.Search,
-                        contentDescription = "",
-                    )
+            AnimatedSearchAppBar(
+                onSearch = { query ->
+                    viewModel.loadBooks(hashMapOf(Pair("search", query)))
                 }
             )
         }
     ) { innerPadding ->
-        Spacer(modifier = Modifier.height(20.dp))
-        HorizontalDivider()
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
+            ErrorMessageSection(errorMessage)
+            LoadingSection(state.isLoading)
+            HorizontalDivider()
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(12.dp)

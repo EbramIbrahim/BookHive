@@ -1,6 +1,5 @@
 package com.example.bazar.feature.home_screen.presentation.ui
 
-import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -46,11 +46,11 @@ import com.example.bazar.ui.theme.primaryColor
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    context: Context,
     navController: NavController
 ) {
     val viewModel: BooksViewModel = hiltViewModel()
     val state by viewModel.booksState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
     var errorMessage by rememberSaveable {
         mutableStateOf("")
     }

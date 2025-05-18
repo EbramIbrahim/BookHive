@@ -25,7 +25,7 @@ class BooksViewModel @Inject constructor(
     private val _booksState = MutableStateFlow(BooksState())
     val booksState = _booksState
         .onStart {
-            loadBooks()
+            loadBooks(hashMapOf(Pair("search", "")))
         }
         .stateIn(
             viewModelScope,
@@ -36,11 +36,10 @@ class BooksViewModel @Inject constructor(
     private val _eventChannel = Channel<BooksEvent>()
     val eventChannel = _eventChannel.receiveAsFlow()
 
-
-    fun loadBooks() {
+    fun loadBooks(queryMap: Map<String, Any>?) {
         viewModelScope.launch {
             _booksState.update { it.copy(isLoading = true) }
-            useCase.invoke()
+            useCase.invoke(queryMap)
                 .onSuccess { books ->
                     _booksState.update {
                         it.copy(
@@ -54,21 +53,8 @@ class BooksViewModel @Inject constructor(
                     _booksState.update { it.copy(isLoading = false) }
                     _eventChannel.trySend(BooksEvent.Error(it))
                 }
-
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
