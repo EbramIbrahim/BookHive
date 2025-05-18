@@ -1,5 +1,6 @@
 package com.example.bazar.feature.home_screen.data.mapper
 
+import com.example.bazar.core.presentation.ui.langCodeToLangName
 import com.example.bazar.feature.home_screen.data.model.Result
 import com.example.bazar.feature.home_screen.domain.model.Books
 
@@ -10,10 +11,11 @@ fun Result.toBooks(): Books {
         copyright = this.copyright,
         downloadCount = this.download_count,
         id = id,
-        languages = this.languages,
+        languages = langCodeToLangName(this.languages),
         mediaType = this.media_type,
         subjects = this.subjects,
         title = this.title,
-        bookImage = this.formats.image.orEmpty()
+        bookImage = this.formats.image.orEmpty(),
+        authorName = this.authors.first().name
     )
 }

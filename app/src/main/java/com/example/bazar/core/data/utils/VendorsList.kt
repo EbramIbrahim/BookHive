@@ -10,3 +10,4 @@ object VendorsList {
          R.drawable.vendor_4,
      )
 }
+

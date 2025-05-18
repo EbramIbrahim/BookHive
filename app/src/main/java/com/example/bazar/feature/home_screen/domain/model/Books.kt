@@ -6,9 +6,11 @@ data class Books(
     val copyright: Boolean,
     val downloadCount: Int,
     val id: Int,
-    val languages: List<String>,
+    val languages: String,
     val mediaType: String,
     val subjects: List<String>,
     val title: String,
     val bookImage: String,
+    val authorName: String
 )
+

@@ -26,6 +26,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.bazar.core.data.utils.VendorsList.vendors
@@ -40,10 +41,10 @@ import com.example.bazar.ui.theme.primaryColor
 
 @Composable
 fun HomeScreen(
-    viewModel: BooksViewModel,
     context: Context,
     navController: NavController
 ) {
+    val viewModel: BooksViewModel = hiltViewModel()
     val state by viewModel.booksState.collectAsStateWithLifecycle()
     var errorMessage by rememberSaveable {
         mutableStateOf("")
@@ -85,7 +86,7 @@ fun HomeScreen(
         ) {
             ErrorMessageSection(errorMessage)
             LoadingSection(state.isLoading)
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(38.dp))
 
             state.offerBook?.let {
                 OfferBookSection(
@@ -93,7 +94,7 @@ fun HomeScreen(
                     context = context
                 )
             }
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             Column(
                 modifier = Modifier
@@ -170,10 +171,7 @@ fun HomeScreen(
                 }
             }
         }
-
     }
-
-
 }
 
 

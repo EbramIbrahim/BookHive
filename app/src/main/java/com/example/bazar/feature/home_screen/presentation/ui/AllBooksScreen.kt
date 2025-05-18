@@ -32,8 +32,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -44,9 +46,9 @@ import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksViewMod
 
 @Composable
 fun AllBooksScreen(
-    viewModel: BooksViewModel,
     context: Context
 ) {
+    val viewModel: BooksViewModel = hiltViewModel()
     val state by viewModel.booksState.collectAsStateWithLifecycle()
     Scaffold(
         modifier = Modifier
@@ -73,12 +75,14 @@ fun AllBooksScreen(
             }
         }
     ) { innerPadding ->
+        Spacer(modifier = Modifier.height(20.dp))
+        HorizontalDivider()
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            HorizontalDivider()
 
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -86,11 +90,8 @@ fun AllBooksScreen(
                 items(state.books) { book ->
                     AllBookCardSection(book, context)
                 }
-
             }
-
         }
-
     }
 }
 
@@ -116,7 +117,8 @@ fun AllBookCardSection(
         ) {
             Card(
                 modifier = Modifier
-                    .fillMaxHeight(),
+                    .width(108.dp)
+                    .height(178.dp),
                 shape = RoundedCornerShape(8.dp)
             ) {
 
@@ -142,26 +144,30 @@ fun AllBookCardSection(
 
                 Column {
                     Text(
-                        "The Great Gatsby",
+                        book.title,
                         style = TextStyle(
                             color = Color.Black,
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold
-                        )
+                        ),
+                        maxLines = 3,
+                        overflow = TextOverflow.Ellipsis
                     )
 
                     Text(
-                        "Fitzgerald, F. Scott (Francis Scott)",
+                        book.authorName,
                         style = TextStyle(
                             color = Color.Black,
                             fontSize = 16.sp,
-                        )
+                        ),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
 
                 Column {
                     Text(
-                        "English",
+                        book.languages,
                         style = TextStyle(
                             color = Color.Black,
                             fontSize = 22.sp,
@@ -170,20 +176,19 @@ fun AllBookCardSection(
                     )
 
                     Text(
-                        "First loves -- Fiction",
+                        book.subjects.first(),
                         style = TextStyle(
                             color = Color.Black,
                             fontSize = 16.sp,
-                        )
+                        ),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
 
             }
-
-
         }
     }
-
 }
 
 
