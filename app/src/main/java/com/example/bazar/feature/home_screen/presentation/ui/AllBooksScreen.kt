@@ -19,10 +19,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -44,6 +46,7 @@ import com.example.bazar.feature.home_screen.domain.model.Books
 import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AllBooksScreen(
     context: Context
@@ -55,24 +58,24 @@ fun AllBooksScreen(
             .fillMaxSize()
             .background(Color.White),
         topBar = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-                Text(
-                    text = "All Books",
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 18.sp,
-                        fontStyle = FontStyle.Italic
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "All Books",
+                        style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 18.sp,
+                            fontStyle = FontStyle.Italic
+                        )
                     )
-                )
-
-                Icon(
-                    Icons.Outlined.Search,
-                    contentDescription = "",
-                )
-            }
+                },
+                actions = {
+                    Icon(
+                        Icons.Outlined.Search,
+                        contentDescription = "",
+                    )
+                }
+            )
         }
     ) { innerPadding ->
         Spacer(modifier = Modifier.height(20.dp))
@@ -185,7 +188,6 @@ fun AllBookCardSection(
                         overflow = TextOverflow.Ellipsis
                     )
                 }
-
             }
         }
     }

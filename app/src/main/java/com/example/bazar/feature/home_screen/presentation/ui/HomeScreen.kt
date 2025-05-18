@@ -13,8 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,7 +25,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -39,6 +43,7 @@ import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksEvent
 import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksViewModel
 import com.example.bazar.ui.theme.primaryColor
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     context: Context,
@@ -63,18 +68,18 @@ fun HomeScreen(
             .fillMaxSize()
             .background(Color.White),
         topBar = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "Home",
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 16.sp
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "Home",
+                        style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                        )
                     )
-                )
-            }
+                }
+            )
         }
     ) { innerPadding ->
 
@@ -82,7 +87,8 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
+                .padding(innerPadding)
+                .background(Color.White),
         ) {
             ErrorMessageSection(errorMessage)
             LoadingSection(state.isLoading)
@@ -175,12 +181,35 @@ fun HomeScreen(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+private fun TestUi() {
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "Home",
+                        style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontStyle = FontStyle.Italic
+                        )
+                    )
+                }
+            )
+        }
+    ) {
+        Column(modifier = Modifier.fillMaxSize().padding(it)) {
 
-
-
-
-
-
+        }
+    }
+}
 
 
 
