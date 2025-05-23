@@ -1,7 +1,7 @@
 package com.example.bazar.core.di
 
 import android.content.Context
-import com.example.bazar.core.data.local.repository.KeyValueStorageProvider
+import com.example.bazar.core.data.repository.local.KeyValueStorageProvider
 import com.example.bazar.core.domain.local.repository.IKeyValueStorageProvider
 
 import dagger.Module

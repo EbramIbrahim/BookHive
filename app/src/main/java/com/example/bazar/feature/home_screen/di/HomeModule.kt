@@ -1,6 +1,6 @@
 package com.example.bazar.feature.home_screen.di
 
-import com.example.bazar.feature.home_screen.data.repository.BooksApi
+import com.example.bazar.core.data.repository.remote.BooksApi
 import com.example.bazar.feature.home_screen.data.repository.GetBooksRepositoryImpl
 import com.example.bazar.feature.home_screen.domain.repository.GetBooksRepository
 import com.example.bazar.feature.home_screen.domain.usecase.GetBooksUseCase

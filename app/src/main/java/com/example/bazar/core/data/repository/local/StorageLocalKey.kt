@@ -1,4 +1,4 @@
-package com.example.bazar.core.data.local.repository
+package com.example.bazar.core.data.repository.local
 
 import com.example.bazar.core.domain.local.repository.IStorageLocalKey
 
