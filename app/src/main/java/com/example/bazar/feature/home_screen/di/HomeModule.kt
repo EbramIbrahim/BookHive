@@ -1,6 +1,7 @@
 package com.example.bazar.feature.home_screen.di
 
 import com.example.bazar.core.data.repository.remote.BooksApi
+import com.example.bazar.core.di.FirstApiRetrofit
 import com.example.bazar.feature.home_screen.data.repository.GetBooksRepositoryImpl
 import com.example.bazar.feature.home_screen.domain.repository.GetBooksRepository
 import com.example.bazar.feature.home_screen.domain.usecase.GetBooksUseCase
@@ -10,6 +11,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -32,6 +34,8 @@ object HomeModule {
             )
             readTimeout(30L, TimeUnit.SECONDS)
             writeTimeout(30L, TimeUnit.SECONDS)
+            addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+
         }
     }
 
@@ -43,6 +47,7 @@ object HomeModule {
 
     @Provides
     @Singleton
+    @FirstApiRetrofit
     fun provideRetrofit(
         okHttpClient: OkHttpClient.Builder,
         gsonConverterFactory: GsonConverterFactory,
@@ -56,7 +61,7 @@ object HomeModule {
 
     @Provides
     @Singleton
-    fun provideAlReposApiService(retrofit: Retrofit): BooksApi =
+    fun provideAlReposApiService(@FirstApiRetrofit retrofit: Retrofit): BooksApi =
         retrofit.create(BooksApi::class.java)
 
     @Provides

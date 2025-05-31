@@ -21,17 +21,20 @@ import androidx.compose.ui.text.withAnnotation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bazar.core.presentation.ui.langCodeToLangName
+import com.example.bazar.feature.book_details.domain.model.BookDetails
 
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
-fun DetailsMiddleSection() {
+fun DetailsMiddleSection(details: BookDetails) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(70.dp)
+            .padding(horizontal = 8.dp)
             .clip(RoundedCornerShape(10.dp))
-            .background(Color.Gray),
+            .background(Color.LightGray),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -44,7 +47,7 @@ fun DetailsMiddleSection() {
                 ) {
                     append("\uD83C\uDF10")
                 }
-                append(" English")
+                append(" ${details.language.langCodeToLangName()}")
             },
             style = TextStyle(
                 color = Color.Black,
@@ -52,7 +55,7 @@ fun DetailsMiddleSection() {
             )
         )
 
-        VerticalDivider(modifier = Modifier.padding(vertical = 8.dp))
+        VerticalDivider(modifier = Modifier.padding(vertical = 8.dp), color = Color.Black)
 
         Text(
             buildAnnotatedString {
@@ -62,7 +65,7 @@ fun DetailsMiddleSection() {
                 ) {
                     append("\uD83D\uDCD6")
                 }
-                append(" 270")
+                append(" ${details.pageCount}")
             },
             style = TextStyle(
                 color = Color.Black,
@@ -70,7 +73,7 @@ fun DetailsMiddleSection() {
             )
         )
 
-        VerticalDivider(modifier = Modifier.padding(vertical = 8.dp))
+        VerticalDivider(modifier = Modifier.padding(vertical = 8.dp), color = Color.Black)
 
         Text(
             buildAnnotatedString {
@@ -91,11 +94,6 @@ fun DetailsMiddleSection() {
     }
 }
 
-@Preview
-@Composable
-private fun DetailsMiddleSectionPrev() {
-    DetailsMiddleSection()
-}
 
 
 

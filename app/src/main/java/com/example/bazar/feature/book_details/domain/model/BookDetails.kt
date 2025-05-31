@@ -5,7 +5,7 @@ data class BookDetails(
     val canonicalVolumeLink: String,
     val contentVersion: String,
     val description: String,
-    val bookImages: BookImages,
+    val thumbnail: String,
     val infoLink: String,
     val language: String,
     val maturityRating: String,
@@ -16,8 +16,4 @@ data class BookDetails(
     val publisher: String,
     val subtitle: String,
     val title: String
-)
-data class BookImages(
-    val smallThumbnail: String,
-    val thumbnail: String,
 )

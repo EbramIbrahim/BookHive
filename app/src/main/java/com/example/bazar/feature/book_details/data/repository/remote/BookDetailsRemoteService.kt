@@ -8,7 +8,7 @@ interface BookDetailsRemoteService {
 
     @GET("volumes")
     suspend fun getBookDetailsByName(
-        @Query("q") bookName: String
+        @Query("q") bookName: String,
     ): BookDetailsDto
 
 }

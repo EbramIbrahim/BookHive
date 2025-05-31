@@ -11,7 +11,19 @@ class BookDetailsRepositoryImpl @Inject constructor(
 
     override suspend fun getBookDetails(bookName: String): BookDetails {
         val response = remoteService.getBookDetailsByName(bookName)
-        val bookDetails = response.items.map { it.volumeInfo.toBookDetails() }.first()
-        return bookDetails
+
+        val bookDetails = response.items.map { it.volumeInfo?.toBookDetails() }.first()
+        return bookDetails!!
     }
 }
+
+
+
+
+
+
+
+
+
+
+

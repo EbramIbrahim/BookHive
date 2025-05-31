@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.bazar.feature.book_details.presentation.ui.BookDetailsScreen
 import com.example.bazar.feature.home_screen.presentation.ui.AllBooksScreen
 import com.example.bazar.feature.home_screen.presentation.ui.HomeScreen
 import com.example.bazar.feature.onboarding.presentation.ui.HorizontalOnBoardingPager
@@ -17,7 +18,7 @@ fun SetupNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.SplashScreen
+        startDestination = Screen.BookDetailsScreen
     ) {
         composable<Screen.SplashScreen> {
             SplashScreen(navController)
@@ -30,6 +31,10 @@ fun SetupNavHost() {
         }
         composable<Screen.AllBooksScreen> {
             AllBooksScreen()
+        }
+
+        composable<Screen.BookDetailsScreen> {
+            BookDetailsScreen()
         }
     }
 
