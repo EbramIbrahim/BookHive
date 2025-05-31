@@ -29,7 +29,8 @@ fun DetailsTopSection(thumbnail: String, context: Context) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(230.dp),
+                .height(230.dp)
+                .blur(10.dp),
             contentAlignment = Alignment.BottomCenter
         ) {
             AsyncImage(
@@ -54,8 +55,8 @@ fun DetailsTopSection(thumbnail: String, context: Context) {
         ) {
             Card(
                 modifier = Modifier
-                    .width(108.dp)
-                    .height(178.dp),
+                    .width(128.dp)
+                    .height(188.dp),
                 shape = RoundedCornerShape(8.dp)
             ) {
                 AsyncImage(

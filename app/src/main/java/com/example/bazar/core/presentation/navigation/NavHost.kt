@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.bazar.feature.book_details.presentation.ui.BookDetailsScreen
 import com.example.bazar.feature.home_screen.presentation.ui.AllBooksScreen
 import com.example.bazar.feature.home_screen.presentation.ui.HomeScreen
@@ -30,11 +31,12 @@ fun SetupNavHost() {
             HomeScreen(navController)
         }
         composable<Screen.AllBooksScreen> {
-            AllBooksScreen()
+            AllBooksScreen(navController)
         }
 
-        composable<Screen.BookDetailsScreen> {
-            BookDetailsScreen()
+        composable<Screen.BookDetailsScreen> { backStackEntry ->
+            val detailsScreen: Screen.BookDetailsScreen = backStackEntry.toRoute()
+            BookDetailsScreen(detailsScreen.bookName)
         }
     }
 

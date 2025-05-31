@@ -2,6 +2,7 @@ package com.example.bazar.feature.home_screen.presentation.ui
 
 import android.content.Context
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,9 +39,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bazar.R
+import com.example.bazar.core.presentation.navigation.Screen
 import com.example.bazar.core.presentation.ui.AnimatedSearchAppBar
 import com.example.bazar.core.presentation.utils.ErrorMessageSection
 import com.example.bazar.core.presentation.utils.LoadingSection
@@ -53,7 +56,7 @@ import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksViewMod
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AllBooksScreen() {
+fun AllBooksScreen(navController: NavController) {
     val viewModel: BooksViewModel = hiltViewModel()
     val state by viewModel.booksState.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -97,7 +100,9 @@ fun AllBooksScreen() {
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(state.books) { book ->
-                    AllBookCardSection(book, context)
+                    AllBookCardSection(book, context, onCardClick = { bookName ->
+                        navController.navigate(Screen.BookDetailsScreen(bookName))
+                    })
                 }
             }
         }
@@ -108,13 +113,17 @@ fun AllBooksScreen() {
 @Composable
 fun AllBookCardSection(
     book: Books,
-    context: Context
+    context: Context,
+    onCardClick: (String) -> Unit
 ) {
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp),
+            .height(200.dp)
+            .clickable {
+                onCardClick(book.title)
+            },
         shape = RectangleShape,
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)

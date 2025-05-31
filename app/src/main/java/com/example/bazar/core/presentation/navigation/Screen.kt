@@ -17,5 +17,5 @@ interface Screen {
     data object AllBooksScreen: Screen
 
     @Serializable
-    data object BookDetailsScreen: Screen
+    data class BookDetailsScreen(val bookName: String): Screen
 }

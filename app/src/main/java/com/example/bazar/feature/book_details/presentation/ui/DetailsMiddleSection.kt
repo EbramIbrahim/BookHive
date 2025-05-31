@@ -18,7 +18,6 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withAnnotation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bazar.core.presentation.ui.langCodeToLangName
@@ -34,7 +33,7 @@ fun DetailsMiddleSection(details: BookDetails) {
             .height(70.dp)
             .padding(horizontal = 8.dp)
             .clip(RoundedCornerShape(10.dp))
-            .background(Color.LightGray),
+            .background(Color.LightGray.copy(alpha = 0.5f)),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
