@@ -50,8 +50,9 @@ class BooksViewModel @Inject constructor(
                     }
                 }
                 .onError {
-                    _booksState.update { it.copy(isLoading = false) }
                     _eventChannel.trySend(BooksEvent.Error(it))
+                    _booksState.update { it.copy(isLoading = false) }
+
                 }
         }
     }
