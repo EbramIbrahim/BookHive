@@ -28,7 +28,7 @@ import com.example.bazar.core.presentation.navigation.Screen
 import com.example.bazar.core.presentation.ui.PrimaryCustomElevatedButton
 import com.example.bazar.feature.onboarding.data.OnBoarding
 import com.example.bazar.feature.onboarding.presentation.viewmodel.OnBoardingViewModel
-import com.example.bazar.ui.theme.primaryColor
+import com.example.bazar.ui.theme.LocalTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -42,6 +42,7 @@ fun HorizontalOnBoardingPager(
 ) {
 
     val viewModel: OnBoardingViewModel = hiltViewModel()
+    val theme = LocalTheme.current
 
     val pages = listOf(
         OnBoarding(
@@ -67,7 +68,7 @@ fun HorizontalOnBoardingPager(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(theme.surface)
     ) {
         HorizontalPager(
             state = pagerState,
@@ -109,7 +110,7 @@ fun HorizontalOnBoardingPager(
                                 shape = RoundedCornerShape(10.dp)
                             )
                             .background(
-                                color = if (isSelected) primaryColor else Color.White,
+                                color = if (isSelected) theme.primaryColor else theme.surface,
                                 shape = CircleShape
                             )
                     )
@@ -118,10 +119,10 @@ fun HorizontalOnBoardingPager(
             Spacer(modifier = Modifier.height(28.dp))
 
             PrimaryCustomElevatedButton(
-                backgroundColor = primaryColor,
+                backgroundColor = theme.primaryColor,
                 buttonTitle =
                     if (pagerState.currentPage < 2) "Continue" else "Get Started",
-                titleColor = Color.White,
+                titleColor = theme.surface,
                 onClick = {
                     if (pagerState.currentPage < 2) {
                         val nextPage = pagerState.currentPage + 1
@@ -134,9 +135,9 @@ fun HorizontalOnBoardingPager(
             )
             Spacer(modifier = Modifier.height(8.dp))
             PrimaryCustomElevatedButton(
-                backgroundColor = Color.White,
+                backgroundColor = theme.surface,
                 buttonTitle = "Sign in",
-                titleColor = primaryColor,
+                titleColor = theme.primaryColor,
                 onClick = {
                 }
             )

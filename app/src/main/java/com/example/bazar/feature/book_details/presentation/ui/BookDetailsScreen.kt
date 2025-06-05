@@ -36,7 +36,8 @@ import com.example.bazar.core.presentation.utils.LoadingSection
 import com.example.bazar.core.presentation.utils.ObserveAsEvent
 import com.example.bazar.feature.book_details.presentation.viewmodel.DetailsEvent
 import com.example.bazar.feature.book_details.presentation.viewmodel.DetailsViewModel
-import com.example.bazar.feature.home_screen.presentation.utils.toMessage
+import com.example.bazar.core.presentation.utils.toMessage
+import com.example.bazar.ui.theme.LocalTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,6 +49,8 @@ fun BookDetailsScreen(bookName: String) {
     var errorMessage by rememberSaveable {
         mutableStateOf("")
     }
+    val theme = LocalTheme.current
+
 
     LaunchedEffect(true) {
         viewModel.getBookDetails(bookName)
@@ -98,10 +101,8 @@ fun BookDetailsScreen(bookName: String) {
                 ) {
                     Text(
                         details.title,
-                        style = TextStyle(
-                            color = Color.Black,
+                        style = theme.primaryTextStyle.copy(
                             fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center
                         )
                     )
@@ -109,8 +110,7 @@ fun BookDetailsScreen(bookName: String) {
 
                     Text(
                         details.authors.first(),
-                        style = TextStyle(
-                            color = Color.Gray,
+                        style = theme.hintTextStyle.copy(
                             fontSize = 16.sp,
                             textAlign = TextAlign.Center
                         )
@@ -131,25 +131,20 @@ fun BookDetailsScreen(bookName: String) {
 
                     Text(
                         text = "Synopsis",
-                        style = TextStyle(
-                            color = Color.Black,
+                        style = theme.primaryTextStyle.copy(
                             fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
                         )
                     )
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
                         text = details.description,
-                        style = TextStyle(
-                            color = Color.Black,
+                        style = theme.primaryTextStyle.copy(
                             fontSize = 18.sp,
                             textAlign = TextAlign.Start
                         )
                     )
                     Spacer(modifier = Modifier.height(18.dp))
-
-
                 }
             }
         }

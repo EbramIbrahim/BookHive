@@ -38,10 +38,10 @@ import com.example.bazar.core.presentation.navigation.Screen
 import com.example.bazar.core.presentation.utils.ErrorMessageSection
 import com.example.bazar.core.presentation.utils.LoadingSection
 import com.example.bazar.core.presentation.utils.ObserveAsEvent
-import com.example.bazar.feature.home_screen.presentation.utils.toMessage
+import com.example.bazar.core.presentation.utils.toMessage
 import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksEvent
 import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksViewModel
-import com.example.bazar.ui.theme.primaryColor
+import com.example.bazar.ui.theme.LocalTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,6 +54,8 @@ fun HomeScreen(
     var errorMessage by rememberSaveable {
         mutableStateOf("")
     }
+    val theme = LocalTheme.current
+
 
     ObserveAsEvent(viewModel.eventChannel) { event ->
         when (event) {
@@ -66,17 +68,14 @@ fun HomeScreen(
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(theme.surface),
         topBar = {
             TopAppBar(
+                modifier = Modifier.background(theme.surface),
                 title = {
                     Text(
                         text = "Home",
-                        style = TextStyle(
-                            color = Color.Black,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold,
-                        )
+                        style = theme.primaryTextStyle
                     )
                 }
             )
@@ -88,7 +87,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(Color.White),
+                .background(theme.surface),
         ) {
             ErrorMessageSection(errorMessage)
             LoadingSection(state.isLoading)
@@ -97,7 +96,8 @@ fun HomeScreen(
             state.offerBook?.let {
                 OfferBookSection(
                     book = it,
-                    context = context
+                    context = context,
+                    navController = navController
                 )
             }
             Spacer(modifier = Modifier.height(32.dp))
@@ -113,21 +113,14 @@ fun HomeScreen(
                 ) {
                     Text(
                         text = "Top of Week",
-                        style = TextStyle(
-                            color = Color.Black,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                        style = theme.primaryTextStyle
                     )
                     Text(
                         modifier = Modifier.clickable {
                             navController.navigate(Screen.AllBooksScreen)
                         },
                         text = "See all",
-                        style = TextStyle(
-                            color = primaryColor,
-                            fontSize = 18.sp,
-                        )
+                        style = theme.secondaryTextStyle.copy(color = theme.primaryColor)
                     )
                 }
 
@@ -136,7 +129,7 @@ fun HomeScreen(
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    items(state.books.take(10)) { book ->
+                    items(state.books.takeLast(10)) { book ->
                         BookCardSection(
                             book = book,
                             context = context
@@ -152,18 +145,11 @@ fun HomeScreen(
                 ) {
                     Text(
                         text = "Best Vendors",
-                        style = TextStyle(
-                            color = Color.Black,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                        style = theme.primaryTextStyle
                     )
                     Text(
                         text = "See all",
-                        style = TextStyle(
-                            color = primaryColor,
-                            fontSize = 18.sp,
-                        )
+                        style = theme.secondaryTextStyle.copy(color = theme.primaryColor)
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))

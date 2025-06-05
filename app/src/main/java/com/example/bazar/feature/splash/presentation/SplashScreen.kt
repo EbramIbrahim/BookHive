@@ -15,22 +15,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bazar.R
 import com.example.bazar.core.presentation.navigation.Screen
-import com.example.bazar.ui.theme.primaryColor
+import com.example.bazar.ui.theme.LocalTheme
 
 @Composable
 fun SplashScreen(navController: NavController) {
 
     val viewModel: SplashViewModel = hiltViewModel()
     val duration = viewModel.splashScreenDuration.collectAsStateWithLifecycle()
+    val theme = LocalTheme.current
 
     LaunchedEffect(
         key1 = duration.value.splashDuration,
@@ -52,7 +53,7 @@ fun SplashScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(primaryColor),
+            .background(theme.primaryColor),
         contentAlignment = Alignment.Center
     ) {
         Row {
@@ -65,14 +66,19 @@ fun SplashScreen(navController: NavController) {
 
             Text(
                 text = "BookHive.",
-                style = TextStyle(
+                style = theme.primaryTextStyle.copy(
                     color = Color.White,
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 30.sp
                 )
             )
         }
     }
+}
+
+@PreviewLightDark
+@Composable
+private fun SplashPrev() {
+    SplashScreen(rememberNavController())
 }
 
 

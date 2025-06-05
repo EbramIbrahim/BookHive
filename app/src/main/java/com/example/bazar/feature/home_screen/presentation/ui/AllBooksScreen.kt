@@ -28,15 +28,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -49,9 +45,10 @@ import com.example.bazar.core.presentation.utils.ErrorMessageSection
 import com.example.bazar.core.presentation.utils.LoadingSection
 import com.example.bazar.core.presentation.utils.ObserveAsEvent
 import com.example.bazar.feature.home_screen.domain.model.Books
-import com.example.bazar.feature.home_screen.presentation.utils.toMessage
+import com.example.bazar.core.presentation.utils.toMessage
 import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksEvent
 import com.example.bazar.feature.home_screen.presentation.viewmodel.BooksViewModel
+import com.example.bazar.ui.theme.LocalTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,6 +60,7 @@ fun AllBooksScreen(navController: NavController) {
     var errorMessage by rememberSaveable {
         mutableStateOf("")
     }
+    val theme = LocalTheme.current
 
     ObserveAsEvent(viewModel.eventChannel) { event ->
         when (event) {
@@ -75,7 +73,7 @@ fun AllBooksScreen(navController: NavController) {
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(theme.surface),
         topBar = {
             AnimatedSearchAppBar(
                 onSearch = { query ->
@@ -116,6 +114,7 @@ fun AllBookCardSection(
     context: Context,
     onCardClick: (String) -> Unit
 ) {
+    val theme = LocalTheme.current
 
     Card(
         modifier = Modifier
@@ -125,7 +124,7 @@ fun AllBookCardSection(
                 onCardClick(book.title)
             },
         shape = RectangleShape,
-        colors = CardDefaults.cardColors(containerColor = Color.LightGray),
+        colors = CardDefaults.cardColors(containerColor = theme.hintTextColor),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         Row(
@@ -163,21 +162,14 @@ fun AllBookCardSection(
                 Column {
                     Text(
                         book.title,
-                        style = TextStyle(
-                            color = Color.Black,
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold
-                        ),
+                        style = theme.primaryTextStyle,
                         maxLines = 3,
                         overflow = TextOverflow.Ellipsis
                     )
 
                     Text(
                         book.authorName,
-                        style = TextStyle(
-                            color = Color.Black,
-                            fontSize = 16.sp,
-                        ),
+                        style = theme.secondaryTextStyle.copy(color = theme.primaryTextColor),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -186,19 +178,12 @@ fun AllBookCardSection(
                 Column {
                     Text(
                         book.languages,
-                        style = TextStyle(
-                            color = Color.Black,
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                        style = theme.primaryTextStyle
                     )
 
                     Text(
                         book.subjects.first(),
-                        style = TextStyle(
-                            color = Color.Black,
-                            fontSize = 16.sp,
-                        ),
+                        style = theme.secondaryTextStyle.copy(color = theme.primaryTextColor),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )

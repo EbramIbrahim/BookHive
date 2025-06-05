@@ -44,7 +44,7 @@ class BooksViewModel @Inject constructor(
                     _booksState.update {
                         it.copy(
                             books = books,
-                            offerBook = books.firstOrNull(),
+                            offerBook = books.random(),
                             isLoading = false
                         )
                     }

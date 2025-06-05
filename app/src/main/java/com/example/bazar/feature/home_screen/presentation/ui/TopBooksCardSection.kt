@@ -11,9 +11,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,13 +19,14 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bazar.R
 import com.example.bazar.feature.home_screen.domain.model.Books
-import com.example.bazar.ui.theme.primaryColor
+import com.example.bazar.ui.theme.LocalTheme
 
 @Composable
 fun BookCardSection(
     book: Books,
     context: Context
 ) {
+    val theme = LocalTheme.current
 
     Column(
         modifier = Modifier
@@ -58,11 +57,8 @@ fun BookCardSection(
 
         Text(
             modifier = Modifier.width(127.dp),
-            text = "book.title",
-            style = TextStyle(
-                color = Color.Black,
-                fontSize = 16.sp,
-            ),
+            text = book.title,
+            style = theme.secondaryTextStyle.copy(color = theme.primaryTextColor),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -71,12 +67,8 @@ fun BookCardSection(
 
         Text(
             text = "$14.99",
-            style = TextStyle(
-                color = primaryColor,
-                fontSize = 16.sp,
+            style = theme.secondaryTextStyle.copy(color = theme.primaryColor, fontSize = 16.sp),
             )
-        )
-
     }
 }
 

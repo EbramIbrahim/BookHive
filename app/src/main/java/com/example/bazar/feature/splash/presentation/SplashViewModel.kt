@@ -34,7 +34,7 @@ class SplashViewModel @Inject constructor(
         viewModelScope.launch {
             val result = repository.getKey()
             delay(1000)
-            _splashScreenDuration.update { it.copy(splashDuration = false, skipOnBoarding = result) }
+            _splashScreenDuration.update { it.copy(splashDuration = false, skipOnBoarding = result == true) }
 
         }
     }

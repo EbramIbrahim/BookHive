@@ -21,22 +21,27 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bazar.R
 import com.example.bazar.feature.onboarding.data.OnBoarding
+import com.example.bazar.ui.theme.LocalTheme
 import com.example.bazar.ui.theme.primaryColor
 
 @Composable
 fun OnBoardingScreen(
     onBoarding: OnBoarding,
-    onClick:() -> Unit
+    onClick: () -> Unit
 ) {
+
+    val theme = LocalTheme.current
+
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(theme.surface)
             .padding(all = 24.dp)
     ) {
         Spacer(modifier = Modifier.height(16.dp))
@@ -47,10 +52,7 @@ fun OnBoardingScreen(
         ) {
             Text(
                 "Skip",
-                style = TextStyle(
-                    color = primaryColor,
-                    fontSize = 16.sp
-                ),
+                style = theme.secondaryTextStyle.copy(color = theme.primaryColor),
                 modifier = Modifier.clickable { onClick() }
             )
         }
@@ -69,25 +71,15 @@ fun OnBoardingScreen(
         ) {
             Text(
                 onBoarding.title,
-                style = TextStyle(
-                    color = Color.Black,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
-                ),
+                style = theme.primaryTextStyle.copy(textAlign = TextAlign.Center),
             )
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 onBoarding.subtitle,
-                style = TextStyle(
-                    color = Color.LightGray,
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center
+                style = theme.hintTextStyle.copy(textAlign = TextAlign.Center),
 
-                ),
-
-            )
+                )
         }
 
     }

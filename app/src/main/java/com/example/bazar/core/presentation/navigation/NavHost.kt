@@ -19,7 +19,7 @@ fun SetupNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.BookDetailsScreen
+        startDestination = Screen.SplashScreen
     ) {
         composable<Screen.SplashScreen> {
             SplashScreen(navController)
@@ -35,7 +35,7 @@ fun SetupNavHost() {
         }
 
         composable<Screen.BookDetailsScreen> { backStackEntry ->
-            val detailsScreen: Screen.BookDetailsScreen = backStackEntry.toRoute()
+            val detailsScreen = backStackEntry.toRoute<Screen.BookDetailsScreen>()
             BookDetailsScreen(detailsScreen.bookName)
         }
     }

@@ -1,0 +1,162 @@
+Index: app/src/main/java/com/example/bazar/ui/theme/CustomTheme.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/bazar/ui/theme/CustomTheme.kt b/app/src/main/java/com/example/bazar/ui/theme/CustomTheme.kt
+new file mode 100644
+--- /dev/null	(date 1748979774829)
++++ b/app/src/main/java/com/example/bazar/ui/theme/CustomTheme.kt	(date 1748979774829)
+@@ -0,0 +1,81 @@
++package com.example.bazar.ui.theme
++
++import androidx.compose.runtime.staticCompositionLocalOf
++import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.text.TextStyle
++import androidx.compose.ui.text.font.FontWeight
++import androidx.compose.ui.unit.sp
++
++data class CustomTheme(
++    val surface: Color,
++    val primaryColor: Color,
++    val secondaryButtonColor: Color,
++    val primaryTextColor: Color,
++    val inverseTextColor: Color,
++    val secondaryTextColor: Color,
++    val hintTextColor: Color,
++    val cardColor: Color,
++    val primaryTextStyle: TextStyle,
++    val secondaryTextStyle: TextStyle,
++    val hintTextStyle: TextStyle,
++)
++
++
++val lightThemeColors = CustomTheme(
++    surface = Color.White,
++    primaryColor = Color(0xFF352368),
++    secondaryButtonColor = Color.White,
++    primaryTextColor = Color.Black,
++    inverseTextColor = Color.White,
++    secondaryTextColor = Color(0xFF352368),
++    hintTextColor = Color(0xFFA6A6A6),
++    cardColor = Color(0xFFFAF9FD),
++    primaryTextStyle = TextStyle(
++        color = Color.Black,
++        fontSize = 24.sp,
++        fontWeight = FontWeight.Bold
++    ),
++    secondaryTextStyle = TextStyle(
++        color = Color.White,
++        fontSize = 18.sp,
++    ),
++    hintTextStyle = TextStyle(
++        color = Color(0xFFA6A6A6),
++        fontSize = 16.sp,
++    ),
++)
++val darkThemeColors = CustomTheme(
++    surface = Color.White,
++    primaryColor = Color(0xFF352368),
++    secondaryButtonColor = Color.White,
++    primaryTextColor = Color.Black,
++    inverseTextColor = Color.White,
++    secondaryTextColor = Color(0xFF352368),
++    hintTextColor = Color.Gray,
++    cardColor = Color(0xFFFAF9FD),
++    primaryTextStyle = TextStyle(
++        color = Color.Black,
++        fontSize = 24.sp,
++        fontWeight = FontWeight.Bold
++    ),
++    secondaryTextStyle = TextStyle(
++        color = Color.White,
++        fontSize = 18.sp,
++    ),
++    hintTextStyle = TextStyle(
++        color = Color(0xFFA6A6A6),
++        fontSize = 16.sp,
++    ),
++)
++
++val LocalTheme = staticCompositionLocalOf<CustomTheme>{
++    error("No colors provided.")
++}
++
++
++
++
++
++
++
++
+Index: app/src/main/java/com/example/bazar/feature/home_screen/presentation/ui/VendorsSection.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bazar.feature.home_screen.presentation.ui\r\n\r\nimport androidx.compose.foundation.Image\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.layout.Box\r\nimport androidx.compose.foundation.layout.size\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.res.painterResource\r\nimport androidx.compose.ui.tooling.preview.Preview\r\nimport androidx.compose.ui.unit.dp\r\nimport com.example.bazar.R\r\nimport com.example.bazar.ui.theme.offerCardBackground\r\n\r\n\r\n@Composable\r\nfun VendorsSection(\r\n    vendorImage: Int\r\n) {\r\n\r\n\r\n    Box(\r\n        modifier = Modifier\r\n            .size(120.dp)\r\n            .background(offerCardBackground),\r\n        contentAlignment = Alignment.Center\r\n    ) {\r\n        Image(\r\n            modifier = Modifier.size(80.dp),\r\n            painter = painterResource(vendorImage),\r\n            contentDescription = \"vendor img\"\r\n        )\r\n    }\r\n\r\n}\r\n\r\n@Preview\r\n@Composable\r\nprivate fun VendorsPrev() {\r\n    VendorsSection(R.drawable.vendor_1)\r\n}\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/bazar/feature/home_screen/presentation/ui/VendorsSection.kt b/app/src/main/java/com/example/bazar/feature/home_screen/presentation/ui/VendorsSection.kt
+--- a/app/src/main/java/com/example/bazar/feature/home_screen/presentation/ui/VendorsSection.kt	(revision 5ca2f21caa1071a1890c6555a927c7108f8f8b1c)
++++ b/app/src/main/java/com/example/bazar/feature/home_screen/presentation/ui/VendorsSection.kt	(date 1748979774845)
+@@ -35,12 +35,6 @@
+ 
+ }
+ 
+-@Preview
+-@Composable
+-private fun VendorsPrev() {
+-    VendorsSection(R.drawable.vendor_1)
+-}
+-
+ 
+ 
+ 
+Index: app/src/main/java/com/example/bazar/core/presentation/navigation/NavHost.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bazar.core.presentation.navigation\r\n\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.navigation.compose.NavHost\r\nimport androidx.navigation.compose.composable\r\nimport androidx.navigation.compose.rememberNavController\r\nimport com.example.bazar.feature.book_details.presentation.ui.BookDetailsScreen\r\nimport com.example.bazar.feature.home_screen.presentation.ui.AllBooksScreen\r\nimport com.example.bazar.feature.home_screen.presentation.ui.HomeScreen\r\nimport com.example.bazar.feature.onboarding.presentation.ui.HorizontalOnBoardingPager\r\nimport com.example.bazar.feature.splash.presentation.SplashScreen\r\n\r\n\r\n@Composable\r\nfun SetupNavHost() {\r\n\r\n    val navController = rememberNavController()\r\n\r\n    NavHost(\r\n        navController = navController,\r\n        startDestination = Screen.BookDetailsScreen\r\n    ) {\r\n        composable<Screen.SplashScreen> {\r\n            SplashScreen(navController)\r\n        }\r\n        composable<Screen.OnBoardingScreen> {\r\n            HorizontalOnBoardingPager(navController)\r\n        }\r\n        composable<Screen.HomeScreen> {\r\n            HomeScreen(navController)\r\n        }\r\n        composable<Screen.AllBooksScreen> {\r\n            AllBooksScreen()\r\n        }\r\n\r\n        composable<Screen.BookDetailsScreen> {\r\n            BookDetailsScreen()\r\n        }\r\n    }\r\n\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/bazar/core/presentation/navigation/NavHost.kt b/app/src/main/java/com/example/bazar/core/presentation/navigation/NavHost.kt
+--- a/app/src/main/java/com/example/bazar/core/presentation/navigation/NavHost.kt	(revision 5ca2f21caa1071a1890c6555a927c7108f8f8b1c)
++++ b/app/src/main/java/com/example/bazar/core/presentation/navigation/NavHost.kt	(date 1748979752000)
+@@ -4,6 +4,7 @@
+ import androidx.navigation.compose.NavHost
+ import androidx.navigation.compose.composable
+ import androidx.navigation.compose.rememberNavController
++import androidx.navigation.toRoute
+ import com.example.bazar.feature.book_details.presentation.ui.BookDetailsScreen
+ import com.example.bazar.feature.home_screen.presentation.ui.AllBooksScreen
+ import com.example.bazar.feature.home_screen.presentation.ui.HomeScreen
+Index: app/src/main/java/com/example/bazar/feature/home_screen/presentation/ui/AllBooksScreen.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bazar.feature.home_screen.presentation.ui\r\n\r\nimport android.content.Context\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.layout.Arrangement\r\nimport androidx.compose.foundation.layout.Column\r\nimport androidx.compose.foundation.layout.Row\r\nimport androidx.compose.foundation.layout.Spacer\r\nimport androidx.compose.foundation.layout.fillMaxHeight\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.foundation.layout.fillMaxWidth\r\nimport androidx.compose.foundation.layout.height\r\nimport androidx.compose.foundation.layout.padding\r\nimport androidx.compose.foundation.layout.width\r\nimport androidx.compose.foundation.lazy.LazyColumn\r\nimport androidx.compose.foundation.lazy.items\r\nimport androidx.compose.foundation.shape.RoundedCornerShape\r\nimport androidx.compose.material3.Card\r\nimport androidx.compose.material3.CardDefaults\r\nimport androidx.compose.material3.ExperimentalMaterial3Api\r\nimport androidx.compose.material3.HorizontalDivider\r\nimport androidx.compose.material3.Scaffold\r\nimport androidx.compose.material3.Text\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.getValue\r\nimport androidx.compose.runtime.mutableStateOf\r\nimport androidx.compose.runtime.saveable.rememberSaveable\r\nimport androidx.compose.runtime.setValue\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.graphics.RectangleShape\r\nimport androidx.compose.ui.layout.ContentScale\r\nimport androidx.compose.ui.platform.LocalContext\r\nimport androidx.compose.ui.text.TextStyle\r\nimport androidx.compose.ui.text.font.FontWeight\r\nimport androidx.compose.ui.text.style.TextOverflow\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.compose.ui.unit.sp\r\nimport androidx.hilt.navigation.compose.hiltViewModel\r\nimport androidx.lifecycle.compose.collectAsStateWithLifecycle\r\nimport coil.compose.AsyncImage\r\nimport coil.request.ImageRequest\r\nimport com.example.bazar.R\r\nimport com.example.bazar.core.presentation.ui.AnimatedSearchAppBar\r\nimport com.example.bazar.core.presentation.utils.ErrorMessageSection\r\nimport com.example.bazar.core.presentation.utils.LoadingSection\r\nimport com.example.bazar.core.presentation.utils.ObserveAsEvent\r\nimport com.example.bazar.feature.home_screen.domain.model.Books\r\nimport com.example.bazar.feature.home_screen.presentation.utils.toMessage\r\nimport com.example.bazar.feature.home_screen.presentation.viewmodel.BooksEvent\r\nimport com.example.bazar.feature.home_screen.presentation.viewmodel.BooksViewModel\r\n\r\n\r\n@OptIn(ExperimentalMaterial3Api::class)\r\n@Composable\r\nfun AllBooksScreen() {\r\n    val viewModel: BooksViewModel = hiltViewModel()\r\n    val state by viewModel.booksState.collectAsStateWithLifecycle()\r\n    val context = LocalContext.current\r\n    var errorMessage by rememberSaveable {\r\n        mutableStateOf(\"\")\r\n    }\r\n\r\n    ObserveAsEvent(viewModel.eventChannel) { event ->\r\n        when (event) {\r\n            is BooksEvent.Error -> {\r\n                errorMessage = event.error.toMessage(context)\r\n            }\r\n        }\r\n    }\r\n\r\n    Scaffold(\r\n        modifier = Modifier\r\n            .fillMaxSize()\r\n            .background(Color.White),\r\n        topBar = {\r\n            AnimatedSearchAppBar(\r\n                onSearch = { query ->\r\n                    viewModel.loadBooks(hashMapOf(Pair(\"search\", query)))\r\n                }\r\n            )\r\n        }\r\n    ) { innerPadding ->\r\n\r\n        Column(\r\n            modifier = Modifier\r\n                .fillMaxSize()\r\n                .padding(innerPadding)\r\n        ) {\r\n            ErrorMessageSection(errorMessage)\r\n            LoadingSection(state.isLoading)\r\n            HorizontalDivider()\r\n\r\n            Spacer(modifier = Modifier.height(8.dp))\r\n\r\n            LazyColumn(\r\n                verticalArrangement = Arrangement.spacedBy(12.dp)\r\n            ) {\r\n                items(state.books) { book ->\r\n                    AllBookCardSection(book, context)\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n\r\n@Composable\r\nfun AllBookCardSection(\r\n    book: Books,\r\n    context: Context\r\n) {\r\n\r\n    Card(\r\n        modifier = Modifier\r\n            .fillMaxWidth()\r\n            .height(200.dp),\r\n        shape = RectangleShape,\r\n        colors = CardDefaults.cardColors(containerColor = Color.LightGray),\r\n        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)\r\n    ) {\r\n        Row(\r\n            modifier = Modifier\r\n                .fillMaxSize()\r\n                .padding(8.dp)\r\n        ) {\r\n            Card(\r\n                modifier = Modifier\r\n                    .width(108.dp)\r\n                    .height(178.dp),\r\n                shape = RoundedCornerShape(8.dp)\r\n            ) {\r\n\r\n                AsyncImage(\r\n                    modifier = Modifier.fillMaxSize(),\r\n                    model = ImageRequest.Builder(context = context)\r\n                        .data(book.bookImage)\r\n                        .error(R.drawable.books_error)\r\n                        .placeholder(R.drawable.books_in_progress)\r\n                        .crossfade(enable = true)\r\n                        .build(),\r\n                    contentDescription = book.id.toString(),\r\n                    contentScale = ContentScale.FillBounds\r\n                )\r\n            }\r\n\r\n            Spacer(modifier = Modifier.width(8.dp))\r\n\r\n            Column(\r\n                modifier = Modifier.fillMaxHeight(),\r\n                verticalArrangement = Arrangement.SpaceEvenly\r\n            ) {\r\n\r\n                Column {\r\n                    Text(\r\n                        book.title,\r\n                        style = TextStyle(\r\n                            color = Color.Black,\r\n                            fontSize = 22.sp,\r\n                            fontWeight = FontWeight.Bold\r\n                        ),\r\n                        maxLines = 3,\r\n                        overflow = TextOverflow.Ellipsis\r\n                    )\r\n\r\n                    Text(\r\n                        book.authorName,\r\n                        style = TextStyle(\r\n                            color = Color.Black,\r\n                            fontSize = 16.sp,\r\n                        ),\r\n                        maxLines = 1,\r\n                        overflow = TextOverflow.Ellipsis\r\n                    )\r\n                }\r\n\r\n                Column {\r\n                    Text(\r\n                        book.languages,\r\n                        style = TextStyle(\r\n                            color = Color.Black,\r\n                            fontSize = 22.sp,\r\n                            fontWeight = FontWeight.Bold\r\n                        )\r\n                    )\r\n\r\n                    Text(\r\n                        book.subjects.first(),\r\n                        style = TextStyle(\r\n                            color = Color.Black,\r\n                            fontSize = 16.sp,\r\n                        ),\r\n                        maxLines = 1,\r\n                        overflow = TextOverflow.Ellipsis\r\n                    )\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/bazar/feature/home_screen/presentation/ui/AllBooksScreen.kt b/app/src/main/java/com/example/bazar/feature/home_screen/presentation/ui/AllBooksScreen.kt
+--- a/app/src/main/java/com/example/bazar/feature/home_screen/presentation/ui/AllBooksScreen.kt	(revision 5ca2f21caa1071a1890c6555a927c7108f8f8b1c)
++++ b/app/src/main/java/com/example/bazar/feature/home_screen/presentation/ui/AllBooksScreen.kt	(date 1748979774767)
+@@ -2,6 +2,7 @@
+ 
+ import android.content.Context
+ import androidx.compose.foundation.background
++import androidx.compose.foundation.clickable
+ import androidx.compose.foundation.layout.Arrangement
+ import androidx.compose.foundation.layout.Column
+ import androidx.compose.foundation.layout.Row
+@@ -38,9 +39,11 @@
+ import androidx.compose.ui.unit.sp
+ import androidx.hilt.navigation.compose.hiltViewModel
+ import androidx.lifecycle.compose.collectAsStateWithLifecycle
++import androidx.navigation.NavController
+ import coil.compose.AsyncImage
+ import coil.request.ImageRequest
+ import com.example.bazar.R
++import com.example.bazar.core.presentation.navigation.Screen
+ import com.example.bazar.core.presentation.ui.AnimatedSearchAppBar
+ import com.example.bazar.core.presentation.utils.ErrorMessageSection
+ import com.example.bazar.core.presentation.utils.LoadingSection

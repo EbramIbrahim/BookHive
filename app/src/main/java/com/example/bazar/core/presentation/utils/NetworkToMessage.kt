@@ -1,4 +1,4 @@
-package com.example.bazar.feature.home_screen.presentation.utils
+package com.example.bazar.core.presentation.utils
 
 import android.content.Context
 import com.example.bazar.core.domain.utils.NetworkError
