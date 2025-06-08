@@ -33,7 +33,6 @@ class DetailsViewModel @Inject constructor(
             _detailsState.update { it.copy(isLoading = true) }
             useCase.invoke(bookName)
                 .onSuccess { details ->
-                    Log.d("details success", details.toString())
                     _detailsState.update { it.copy(bookDetails = details, isLoading = false) }
                 }
                 .onError {

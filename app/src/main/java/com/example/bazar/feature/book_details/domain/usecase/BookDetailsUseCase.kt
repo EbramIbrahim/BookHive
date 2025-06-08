@@ -25,7 +25,6 @@ class BookDetailsUseCase @Inject constructor(
         } catch (_: SerializationException) {
           Result.Error(NetworkError.SERIALIZATION)
         } catch (e: Exception) {
-            Log.d("home State", e.message.toString())
             coroutineContext.ensureActive()
             Result.Error(NetworkError.UNKNOWN)
         }
