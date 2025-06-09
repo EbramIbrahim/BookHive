@@ -19,7 +19,7 @@ BookHive is an Android application that helps users discover, explore, and manag
 ### Core Functionality
 | Home Screen | Book Details | Search | Library |
 |-------------|--------------|--------|---------|
-| ![Home](https://github.com/user-attachments/assets/327a5c5c-4094-4f9c-bfb6-a95bc8e48878) | ![Details](https://via.placeholder.com/300x600?text=Book+Details) | ![Search](https://via.placeholder.com/300x600?text=Search+Results) |
+| ![Home](https://github.com/user-attachments/assets/77f5f5f5-ba0a-42f0-baa2-d5b1bb9cf50f) | ![Details](https://via.placeholder.com/300x600?text=Book+Details) | ![Search](https://via.placeholder.com/300x600?text=Search+Results) |
 
 ## Tech Stack 🛠️
 - **UI Framework**: Jetpack Compose
